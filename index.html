@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Timothy Tey">
-<meta name="dcterms.date" content="2025-12-29">
+<meta name="dcterms.date" content="2026-01-05">
 
 <title>Helios Corn Futures Data Challenge (EDA)</title>
 <style>
@@ -87,13 +87,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exploratory-data-analysis-eda-contents" id="toc-exploratory-data-analysis-eda-contents" class="nav-link active" data-scroll-target="#exploratory-data-analysis-eda-contents">Exploratory Data Analysis (EDA) Contents</a></li>
-  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import Libraries</a></li>
+  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link active" data-scroll-target="#import-libraries">Import Libraries</a></li>
   <li><a href="#import-main-dataset" id="toc-import-main-dataset" class="nav-link" data-scroll-target="#import-main-dataset">Import Main Dataset</a></li>
-  <li><a href="#storing-countries-and-regions" id="toc-storing-countries-and-regions" class="nav-link" data-scroll-target="#storing-countries-and-regions">Storing Countries and Regions</a></li>
   <li><a href="#categorising-datasets" id="toc-categorising-datasets" class="nav-link" data-scroll-target="#categorising-datasets">Categorising dataset(s)</a></li>
   <li><a href="#nullity-plots" id="toc-nullity-plots" class="nav-link" data-scroll-target="#nullity-plots">1. Nullity Plot(s)</a></li>
-  <li><a href="#time-series-plots" id="toc-time-series-plots" class="nav-link" data-scroll-target="#time-series-plots">2. Time Series Plot(s)</a></li>
   </ul>
 </nav>
 </div>
@@ -122,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">29 December 2025</p>
+      <p class="date">5 January 2026</p>
     </div>
   </div>
   
@@ -134,18 +131,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="exploratory-data-analysis-eda-contents" class="level1">
-<h1>Exploratory Data Analysis (EDA) Contents</h1>
-<ol type="1">
-<li>Nullity Analysis</li>
-<li>Time Series Plots</li>
-<li>Scatterplots</li>
-<li>Distributional Plots</li>
-</ol>
-</section>
 <section id="import-libraries" class="level1">
 <h1>Import Libraries</h1>
-<div id="9949e88a" class="cell" data-execution_count="1">
+<div id="4a4828c5" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
@@ -160,10 +148,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-main-dataset" class="level1">
 <h1>Import Main Dataset</h1>
-<div id="6170b0fc" class="cell" data-execution_count="2">
+<div id="5f356b79" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raw_data <span class="op">=</span> pd.read_csv(<span class="st">'corn_climate_risk_futures_daily_master.csv'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>raw_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
@@ -322,10 +310,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="23cb4140" class="cell" data-execution_count="3">
+<div id="c201dc60" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw_data.shape)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw_data.columns)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw_data[<span class="st">'country_name'</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw_data.columns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(320661, 41)
 Index(['ID', 'crop_name', 'country_name', 'country_code', 'region_name',
@@ -349,635 +336,139 @@ Index(['ID', 'crop_name', 'country_name', 'country_code', 'region_name',
        'futures_zw_zc_spread', 'futures_zc_zw_ratio', 'futures_zs_zc_spread',
        'futures_zc_zs_ratio', 'date_on_year', 'date_on_month',
        'date_on_year_month'],
-      dtype='object')
-['Argentina' 'Brazil' 'Canada' 'China' 'India' 'Mexico' 'Paraguay'
- 'Russia' 'South Africa' 'Ukraine' 'United States']</code></pre>
+      dtype='object')</code></pre>
 </div>
 </div>
-</section>
-<section id="storing-countries-and-regions" class="level1">
-<h1>Storing Countries and Regions</h1>
-<div id="d810a0e6" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>country_names <span class="op">=</span> raw_data[<span class="st">'country_name'</span>].unique().tolist()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>country_region <span class="op">=</span> <span class="bu">dict</span>()</span>
+<div id="b225fef5" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hemisphere_data <span class="op">=</span> pd.read_csv(<span class="st">'corn_regional_hemisphere.csv'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>koppen_data <span class="op">=</span> pd.read_csv(<span class="st">'corn_regional_climate_type.csv'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(country_names)):</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    specific_country <span class="op">=</span> country_names[i]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Only looks on specific_country and we seek the regions name</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    filtered_df <span class="op">=</span> raw_data[raw_data[<span class="st">'country_name'</span>] <span class="op">==</span> specific_country]</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    specific_regions <span class="op">=</span> filtered_df[<span class="st">'region_name'</span>].unique().tolist()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Store them into dictionaries</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    country_region[specific_country] <span class="op">=</span> specific_regions</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>country_region</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>{'Argentina': ['Buenos Aires',
-  'Córdoba',
-  'Entre Ríos',
-  'Santa Fe',
-  'Santiago del Estero'],
- 'Brazil': ['Bahia',
-  'Espírito Santo',
-  'Goiás',
-  'Mato Grosso',
-  'Mato Grosso do Sul',
-  'Minas Gerais',
-  'Paraná',
-  'Rio Grande do Sul'],
- 'Canada': ['Ontario', 'Quebec'],
- 'China': ['Hebei',
-  'Heilongjiang',
-  'Henan',
-  'Inner Mongolia',
-  'Jiangsu',
-  'Jilin',
-  'Shandong'],
- 'India': ['Bihar',
-  'Karnataka',
-  'Madhya Pradesh',
-  'Maharashtra',
-  'Tamil Nadu',
-  'Telangana'],
- 'Mexico': ['Guanajuato',
-  'Guerrero',
-  'Jalisco',
-  'Michoacán',
-  'Sinaloa',
-  'State of Mexico',
-  'Zacatecas'],
- 'Paraguay': ['Alto Paraná',
-  'Amambay',
-  'Caaguazú',
-  'Canindeyú',
-  'Itapúa',
-  'San Pedro'],
- 'Russia': ['Bashkortostan',
-  'Belgorod',
-  'Bryansk',
-  'Kabardino-Balkaria',
-  'Krasnodar Krai',
-  'Krasnoyarsk Krai',
-  'Kursk',
-  'Lipetsk',
-  'Nizhny Novgorod',
-  'Orenburg',
-  'Oryol',
-  'Penza',
-  'Republic of Ingushetia',
-  'Republic of Mordovia',
-  'Republic of North Ossetia-Alania',
-  'Republic of Tatarstan',
-  'Rostov',
-  'Ryazan',
-  'Samara',
-  'Saratov',
-  'Stavropol Krai',
-  'Tambov',
-  'Tula',
-  'Ulyanovsk',
-  'Voronezh'],
- 'South Africa': ['Free State',
-  'Gauteng',
-  'KwaZulu-Natal',
-  'Mpumalanga',
-  'North West',
-  'Northern Cape'],
- 'Ukraine': ['Cherkasy',
-  'Dnipropetrovsk',
-  'Odessa',
-  'Poltava',
-  'Sumy',
-  'Vinnytsia'],
- 'United States': ['Illinois',
-  'Indiana',
-  'Iowa',
-  'Kansas',
-  'Minnesota',
-  'Missouri',
-  'Nebraska',
-  'North Dakota',
-  'Ohio',
-  'South Dakota',
-  'Wisconsin']}</code></pre>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>hemisphere_name_dict <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(hemisphere_data[<span class="st">'region_id'</span>], hemisphere_data[<span class="st">'hemisphere'</span>]))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>koppen_name_dict <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(koppen_data[<span class="st">'region_id'</span>], koppen_data[<span class="st">'koppen_zone'</span>]))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hemisphere_name_dict)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(koppen_name_dict)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'bffad37a-7c60-432f-984a-8ea83a944311': 'S', '154a85ea-1f8c-4fb8-b0d4-ba26087d9ee7': 'S', '8ab0a622-787a-43cb-b13f-95955bf3dfd8': 'S', '50e23c9b-44b4-4bbd-8a94-a722c289bb4a': 'S', 'db76c31d-17f5-4980-b5fc-038ca13cf164': 'S', 'c32bff1c-ed66-4dff-a245-1809a1e549b2': 'S', '0993bca1-2d97-48b3-ab90-95de15f62a0c': 'S', '72875111-5763-49b2-89e7-a1344011f49a': 'S', 'f69dd890-c9c2-4c37-b3e9-4eae47be9bd2': 'S', 'e91f6a59-4f59-453b-ba89-c20c053ef43b': 'S', '2c61e6ea-ea11-4796-8a01-a4b93d4af95f': 'S', 'ae76868e-f203-472f-986d-f58d490c96e8': 'S', 'ef64ceb4-bb0e-4e9f-994f-b6f68b90edc1': 'S', 'eb91d4de-c914-4038-afac-1c1051fc0855': 'N_2', 'd840b52b-ce3f-4d9a-bdb8-7f5a6e45bc03': 'N_2', '128bc532-a107-4875-84cd-aa5420af34fa': 'N_2', 'f8ebdf07-700f-4957-866c-f88baa5f3374': 'N_2', '7f8473c8-a51f-49f6-bd46-1cc5489af2e9': 'N_2', '812a2b84-9d6d-4c42-9b39-250a6993bade': 'N_2', '31f9ad5d-e611-4bd7-8bb1-07efa55b57a8': 'N_2', '42b22394-8108-4024-ac88-7808d0e90865': 'N_2', 'de5f4a87-26e3-4b18-9fea-de31aa6aec13': 'N_2', 'PL': 'N_2', 'FR': 'N_2', 'HU': 'N_2', 'ES': 'N_2', 'IT': 'N_2', 'RO': 'N_2', '81a996c0-384c-458d-ac92-20078c6f18eb': 'N_1', '3527bb6f-72d5-4289-9ad5-581212500cc8': 'N_2', '662f4295-a1b8-4ceb-a831-1154fc9ca70a': 'N_1', '97477c9f-a6c5-4d63-a026-b609cb3680d6': 'N_1', '7d91286a-fe59-4ab3-af1e-478692c23f7a': 'N_1', '5b00dad3-b027-4428-8edc-1171342727a0': 'N_1', '9e3a47ff-3b58-480c-b38e-06b97c6dd2cb': 'N_1', 'fc2855eb-fa8b-4e4d-a0e1-ea7f64b8248a': 'N_2', '038a0497-c51e-4345-a4b3-3591f0355077': 'N_1', '42075985-d0c8-4d2c-af41-a9efaa6826e7': 'N_1', '7c4ac4eb-9d3f-41b2-bf9b-b5af46ab5b67': 'N_2', 'f46dd2b5-7269-489c-a0b8-3a79a8dbf77c': 'N_1', 'a28d40db-85d3-4682-99e9-3ae9c883913f': 'N_1', '262e2751-502e-4279-a605-3909a36fa7cf': 'S', '6228073b-ff86-4d3d-a77b-adfe53c92b40': 'S', '6e10da25-4e32-4764-84af-316cc9f70267': 'S', '6a4dabfc-c598-44e0-9d99-ea9e31d110cb': 'S', 'c6761a21-7bee-44a9-9efe-6b1d8af5b759': 'S', 'c6970e1e-9aa1-41ae-900c-98b042d2a614': 'S', '22cb5cc9-9db2-49f1-bb6b-9480135bb318': 'N_2', '505c2fc0-70d3-443d-ac4b-84488f81101e': 'N_2', '7aebb9d2-ec2e-47e9-99d2-a8de799c5158': 'N_2', '0630c8f6-4e4d-4643-aa29-33d7ee60e526': 'N_2', '45e1749c-6c6f-4008-afc1-fb2bb7caf183': 'N_2', '3dfb098d-fcb7-45e9-8c10-ec7ef9a9ac9d': 'N_2', '1617577a-759b-4559-9790-ae22de9e7d3c': 'N_2', '9a6b92a0-cc33-4534-9942-7c6f7057d8bc': 'N_2', 'dc8d1f68-3a1c-4a57-8ba9-26a1b3da44fa': 'N_2', 'bc4a6a26-21dc-4c47-adf8-8e82ee013e53': 'N_2', '9271815e-3b1d-47d6-b312-f8c631fd1f53': 'N_2', 'ed0ee767-7ce5-47e0-8c74-1d91d2ccf576': 'N_2', '3614b209-e1df-453d-9fec-16b532706c1e': 'N_2', 'd5e96c3f-ad60-4251-8759-f0f2a6295a7a': 'N_2', '1ff6abec-8b5b-449e-a6bb-259a141d8df6': 'N_2', '77b7f478-b3a0-4386-aaa1-c22cd3774af5': 'N_2', 'ded535f0-7c1c-4d60-9f0b-1b3958709dd5': 'N_2', '8c3f925e-6abf-4f8e-9a3f-cfd73b16dfba': 'N_2', 'fe800444-9044-49f4-b87e-fe4c9fdef38b': 'N_2', '772ab51a-c941-49a6-ad79-0f5bb8d46b1f': 'N_2', '3302d989-4068-41d6-9d52-df7ed93363b0': 'N_2', '4166fc94-52d9-45d7-aa47-20b134fcf909': 'N_2', '68778842-c2ba-48a3-bbfe-daf02376223a': 'N_2', '01ab8962-db3d-49ef-af56-b877ce4f59d7': 'N_2', 'b58f2780-49bc-4556-8094-63396c9f518e': 'N_2', '9bea4d8a-2264-4cbb-9d78-a3203939105c': 'N_2', 'f64cc017-3ee0-41fb-a6dc-f14db6396b16': 'N_2', '40f2188d-7f04-4083-a68e-964a1830c7ff': 'N_2', 'a4368da8-315e-41b7-854b-e713d514d876': 'N_2', '02ac5492-623c-4e5a-b9b6-a6931524f2d7': 'N_2', '85f2cb33-ce0d-41d9-bd47-de81ac842537': 'N_2', 'a6369632-e35d-4d35-8df3-17d7ed9bb2f0': 'N_2', '216ae69a-e4e3-4319-a408-54b9fb807570': 'N_2', 'a13f0240-6eb2-4726-a1b2-2e70346d337f': 'N_2', '3fa523da-dfca-48f1-9642-3a1b40ea1969': 'N_2', 'f1935c38-6539-4796-abb0-bbc8efbc27a2': 'N_2', '6a45f8a4-fa9d-417c-bd10-f488e3bf9083': 'N_2', '59c2cfc6-b1ce-4857-865e-38c85e86a6d4': 'N_2', '3a4aaaa3-28e3-4ae9-97c9-d6bf30f1afb7': 'N_2', '9374b612-8ca3-4bd8-9cfa-92de5e546912': 'N_2', 'e9757b3e-db11-4a14-8dd9-4748127a3435': 'N_2', 'd18c7a65-685f-4771-99e4-1b04a3cbae29': 'N_2', 'e6a19582-6a4d-43a0-835d-b132907f630f': 'S', '11270cdf-d7c9-4f23-a8c8-fc44126d6fcd': 'S', 'afcc765a-117b-4a57-8b81-397b36817760': 'S', 'c7c3cdc4-9fe3-4e97-9a6f-bfc5868865d3': 'S', '493ad2e4-3b3e-4390-b171-047d632d749e': 'S', '67389144-7acd-4556-ac72-f1748b0d628a': 'S'}
+{'bffad37a-7c60-432f-984a-8ea83a944311': 'Cfa', '154a85ea-1f8c-4fb8-b0d4-ba26087d9ee7': 'Cwa', '8ab0a622-787a-43cb-b13f-95955bf3dfd8': 'Cfa', '50e23c9b-44b4-4bbd-8a94-a722c289bb4a': 'Cwa', 'db76c31d-17f5-4980-b5fc-038ca13cf164': 'Cfa', 'c32bff1c-ed66-4dff-a245-1809a1e549b2': 'Aw', '0993bca1-2d97-48b3-ab90-95de15f62a0c': 'Cfb', '72875111-5763-49b2-89e7-a1344011f49a': 'Cfa', 'f69dd890-c9c2-4c37-b3e9-4eae47be9bd2': 'Aw', 'e91f6a59-4f59-453b-ba89-c20c053ef43b': 'Af', '2c61e6ea-ea11-4796-8a01-a4b93d4af95f': 'Aw', 'ae76868e-f203-472f-986d-f58d490c96e8': 'Aw', 'ef64ceb4-bb0e-4e9f-994f-b6f68b90edc1': 'Aw', 'eb91d4de-c914-4038-afac-1c1051fc0855': 'Dfb', 'd840b52b-ce3f-4d9a-bdb8-7f5a6e45bc03': 'Dfb', '128bc532-a107-4875-84cd-aa5420af34fa': 'Cwa', 'f8ebdf07-700f-4957-866c-f88baa5f3374': 'Dwa', '7f8473c8-a51f-49f6-bd46-1cc5489af2e9': 'Dwa', '812a2b84-9d6d-4c42-9b39-250a6993bade': 'Cfa', '31f9ad5d-e611-4bd7-8bb1-07efa55b57a8': 'Cwa', '42b22394-8108-4024-ac88-7808d0e90865': 'Dwa', 'de5f4a87-26e3-4b18-9fea-de31aa6aec13': 'BSk', 'PL': nan, 'FR': nan, 'HU': nan, 'ES': nan, 'IT': nan, 'RO': nan, '81a996c0-384c-458d-ac92-20078c6f18eb': 'Csa', '3527bb6f-72d5-4289-9ad5-581212500cc8': 'Cwa', '662f4295-a1b8-4ceb-a831-1154fc9ca70a': 'Aw', '97477c9f-a6c5-4d63-a026-b609cb3680d6': 'Aw', '7d91286a-fe59-4ab3-af1e-478692c23f7a': 'Aw', '5b00dad3-b027-4428-8edc-1171342727a0': 'Aw', '9e3a47ff-3b58-480c-b38e-06b97c6dd2cb': 'Cwa', 'fc2855eb-fa8b-4e4d-a0e1-ea7f64b8248a': 'Csa', '038a0497-c51e-4345-a4b3-3591f0355077': 'Cwa', '42075985-d0c8-4d2c-af41-a9efaa6826e7': 'BSk', '7c4ac4eb-9d3f-41b2-bf9b-b5af46ab5b67': 'BSk', 'f46dd2b5-7269-489c-a0b8-3a79a8dbf77c': 'Aw', 'a28d40db-85d3-4682-99e9-3ae9c883913f': 'BSk', '262e2751-502e-4279-a605-3909a36fa7cf': 'Cfa', '6228073b-ff86-4d3d-a77b-adfe53c92b40': 'Cfa', '6e10da25-4e32-4764-84af-316cc9f70267': 'Cfa', '6a4dabfc-c598-44e0-9d99-ea9e31d110cb': 'Cfa', 'c6761a21-7bee-44a9-9efe-6b1d8af5b759': 'Cfa', 'c6970e1e-9aa1-41ae-900c-98b042d2a614': 'Cfa', '22cb5cc9-9db2-49f1-bb6b-9480135bb318': 'Dfb', '505c2fc0-70d3-443d-ac4b-84488f81101e': 'Dfb', '7aebb9d2-ec2e-47e9-99d2-a8de799c5158': 'Dfb', '0630c8f6-4e4d-4643-aa29-33d7ee60e526': 'Dfb', '45e1749c-6c6f-4008-afc1-fb2bb7caf183': 'Dfb', '3dfb098d-fcb7-45e9-8c10-ec7ef9a9ac9d': 'Dfb', '1617577a-759b-4559-9790-ae22de9e7d3c': 'Dfb', '9a6b92a0-cc33-4534-9942-7c6f7057d8bc': 'Dfb', 'dc8d1f68-3a1c-4a57-8ba9-26a1b3da44fa': 'Dfb', 'bc4a6a26-21dc-4c47-adf8-8e82ee013e53': 'Cfa', '9271815e-3b1d-47d6-b312-f8c631fd1f53': 'Dfa', 'ed0ee767-7ce5-47e0-8c74-1d91d2ccf576': 'Dfa', '3614b209-e1df-453d-9fec-16b532706c1e': 'Dfc', 'd5e96c3f-ad60-4251-8759-f0f2a6295a7a': 'Cfa', '1ff6abec-8b5b-449e-a6bb-259a141d8df6': 'Dfc', '77b7f478-b3a0-4386-aaa1-c22cd3774af5': 'Cfa', 'ded535f0-7c1c-4d60-9f0b-1b3958709dd5': 'Dfb', '8c3f925e-6abf-4f8e-9a3f-cfd73b16dfba': 'Dfb', 'fe800444-9044-49f4-b87e-fe4c9fdef38b': 'Dfb', '772ab51a-c941-49a6-ad79-0f5bb8d46b1f': 'Dfa', '3302d989-4068-41d6-9d52-df7ed93363b0': 'Dfb', '4166fc94-52d9-45d7-aa47-20b134fcf909': 'Dfb', '68778842-c2ba-48a3-bbfe-daf02376223a': 'Dfb', '01ab8962-db3d-49ef-af56-b877ce4f59d7': 'Dfb', 'b58f2780-49bc-4556-8094-63396c9f518e': 'Dfb', '9bea4d8a-2264-4cbb-9d78-a3203939105c': 'Dfa', 'f64cc017-3ee0-41fb-a6dc-f14db6396b16': 'Cfa', '40f2188d-7f04-4083-a68e-964a1830c7ff': 'Dfb', 'a4368da8-315e-41b7-854b-e713d514d876': 'Dfb', '02ac5492-623c-4e5a-b9b6-a6931524f2d7': 'Dfb', '85f2cb33-ce0d-41d9-bd47-de81ac842537': 'Dfb', 'a6369632-e35d-4d35-8df3-17d7ed9bb2f0': 'Cfa', '216ae69a-e4e3-4319-a408-54b9fb807570': 'Dfb', 'a13f0240-6eb2-4726-a1b2-2e70346d337f': 'Dfa', '3fa523da-dfca-48f1-9642-3a1b40ea1969': 'Dfa', 'f1935c38-6539-4796-abb0-bbc8efbc27a2': 'Cfa', '6a45f8a4-fa9d-417c-bd10-f488e3bf9083': 'Dfa', '59c2cfc6-b1ce-4857-865e-38c85e86a6d4': 'Cfa', '3a4aaaa3-28e3-4ae9-97c9-d6bf30f1afb7': 'Cfa', '9374b612-8ca3-4bd8-9cfa-92de5e546912': 'Dfa', 'e9757b3e-db11-4a14-8dd9-4748127a3435': 'Dfb', 'd18c7a65-685f-4771-99e4-1b04a3cbae29': 'Dfb', 'e6a19582-6a4d-43a0-835d-b132907f630f': 'Cwb', '11270cdf-d7c9-4f23-a8c8-fc44126d6fcd': 'BSh', 'afcc765a-117b-4a57-8b81-397b36817760': 'BSh', 'c7c3cdc4-9fe3-4e97-9a6f-bfc5868865d3': 'Cwb', '493ad2e4-3b3e-4390-b171-047d632d749e': 'Cfa', '67389144-7acd-4556-ac72-f1748b0d628a': 'BSk'}</code></pre>
+</div>
+</div>
+<div id="0ff58281" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>raw_data[<span class="st">'hemisphere'</span>] <span class="op">=</span> raw_data[<span class="st">'region_id'</span>].<span class="bu">map</span>(hemisphere_name_dict)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>raw_data[<span class="st">'koppen'</span>] <span class="op">=</span> raw_data[<span class="st">'region_id'</span>].<span class="bu">map</span>(koppen_name_dict)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>raw_data.head()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw_data[<span class="st">'koppen'</span>].unique())</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw_data[<span class="st">'hemisphere'</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Cfa' 'Cwa' 'Af' 'Aw' 'Cfb' 'Dfb' 'Dwa' 'BSk' 'Csa' 'Dfc' 'Dfa' 'Cwb'
+ 'BSh']
+['S' 'N_2' 'N_1']</code></pre>
 </div>
 </div>
 </section>
 <section id="categorising-datasets" class="level1">
 <h1>Categorising dataset(s)</h1>
-<p>Need to seperate the dataset into different regions (the dataset is from 2015 to 2024) Try to split the dataset first wrt specific regions</p>
-<div id="e87621cc" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_cols <span class="op">=</span> raw_data.columns.tolist()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>deleted_cols <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'crop_name'</span>, <span class="st">'country_name'</span>, <span class="st">'country_code'</span>, <span class="st">'region_id'</span>]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_cols_needed <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df_cols <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> deleted_cols]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_cols_needed)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> country, regions <span class="kw">in</span> country_region.items():</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(regions)):</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        specific_region <span class="op">=</span> regions[i]</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        filtered_country_df <span class="op">=</span> raw_data[raw_data[<span class="st">'country_name'</span>] <span class="op">==</span> country]</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        filtered_country_region_df <span class="op">=</span> filtered_country_df[filtered_country_df[<span class="st">'region_name'</span>] <span class="op">==</span> specific_region]</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        filtered_country_region_df <span class="op">=</span> filtered_country_region_df.loc[:, df_cols_needed]</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        filtered_country_region_df[<span class="st">"date_on"</span>] <span class="op">=</span> pd.to_datetime(filtered_country_region_df[<span class="st">"date_on"</span>])</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        filtered_country_region_df <span class="op">=</span> filtered_country_region_df.sort_values(by<span class="op">=</span><span class="st">"date_on"</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Create categorical variables for harvest period</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        mapping_period_dict <span class="op">=</span> {</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Off-season'</span>: <span class="dv">0</span>,</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Planting'</span>: <span class="dv">1</span>,</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Mid-season'</span>: <span class="dv">2</span>,</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Harvest'</span>: <span class="dv">3</span>,</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Peak Harvest'</span>: <span class="dv">4</span>,</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        filtered_country_region_df[<span class="st">'categorical_harvest_period'</span>] <span class="op">=</span> filtered_country_region_df[<span class="st">'harvest_period'</span>].<span class="bu">map</span>(mapping_period_dict)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        output_dir <span class="op">=</span> <span class="ss">f'./</span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">'</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        os.makedirs(output_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        file_name <span class="op">=</span> <span class="ss">f'raw_</span><span class="sc">{</span>specific_region<span class="sc">}</span><span class="ss">.csv'</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        full_path <span class="op">=</span> os.path.join(output_dir, file_name)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        filtered_country_region_df.to_csv(full_path, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All dataset are succesfully categorised."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Categorise dataset wrt hemisphere, and then koppen climate type.</p>
+<div id="ddf005b7" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>south_data <span class="op">=</span> raw_data[raw_data[<span class="st">'hemisphere'</span>] <span class="op">==</span> <span class="st">'S'</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n1_data <span class="op">=</span> raw_data[raw_data[<span class="st">'hemisphere'</span>] <span class="op">==</span> <span class="st">'N_1'</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>n2_data <span class="op">=</span> raw_data[raw_data[<span class="st">'hemisphere'</span>] <span class="op">==</span> <span class="st">'N_2'</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>south_regions_categories <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>n1_regions_categories <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>n2_regions_categories <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> koppen <span class="kw">in</span> raw_data[<span class="st">'koppen'</span>].unique():</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    south_koppen <span class="op">=</span> south_data[south_data[<span class="st">'koppen'</span>] <span class="op">==</span> <span class="ss">f'</span><span class="sc">{</span>koppen<span class="sc">}</span><span class="ss">'</span>]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    south_koppen_region <span class="op">=</span> south_koppen[<span class="st">'region_name'</span>].unique().tolist()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    south_regions_categories[koppen] <span class="op">=</span> south_koppen_region</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    n1_koppen <span class="op">=</span> n1_data[n1_data[<span class="st">'koppen'</span>] <span class="op">==</span> <span class="ss">f'</span><span class="sc">{</span>koppen<span class="sc">}</span><span class="ss">'</span>]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    n1_koppen_region <span class="op">=</span> n1_koppen[<span class="st">'region_name'</span>].unique().tolist()</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    n1_regions_categories[koppen] <span class="op">=</span> n1_koppen_region</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    n2_koppen <span class="op">=</span> n2_data[n2_data[<span class="st">'koppen'</span>] <span class="op">==</span> <span class="ss">f'</span><span class="sc">{</span>koppen<span class="sc">}</span><span class="ss">'</span>]</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    n2_koppen_region <span class="op">=</span> n2_koppen[<span class="st">'region_name'</span>].unique().tolist()</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    n2_regions_categories[koppen] <span class="op">=</span> n2_koppen_region</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(south_regions_categories)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n1_regions_categories)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n2_regions_categories)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['region_name', 'harvest_period', 'growing_season_year', 'date_on', 'climate_risk_cnt_locations_heat_stress_risk_low', 'climate_risk_cnt_locations_heat_stress_risk_medium', 'climate_risk_cnt_locations_heat_stress_risk_high', 'climate_risk_cnt_locations_unseasonably_cold_risk_low', 'climate_risk_cnt_locations_unseasonably_cold_risk_medium', 'climate_risk_cnt_locations_unseasonably_cold_risk_high', 'climate_risk_cnt_locations_excess_precip_risk_low', 'climate_risk_cnt_locations_excess_precip_risk_medium', 'climate_risk_cnt_locations_excess_precip_risk_high', 'climate_risk_cnt_locations_drought_risk_low', 'climate_risk_cnt_locations_drought_risk_medium', 'climate_risk_cnt_locations_drought_risk_high', 'futures_close_ZC_1', 'futures_close_ZC_2', 'futures_close_ZW_1', 'futures_close_ZS_1', 'futures_zc1_ret_pct', 'futures_zc1_ret_log', 'futures_zc_term_spread', 'futures_zc_term_ratio', 'futures_zc1_ma_20', 'futures_zc1_ma_60', 'futures_zc1_ma_120', 'futures_zc1_vol_20', 'futures_zc1_vol_60', 'futures_zw_zc_spread', 'futures_zc_zw_ratio', 'futures_zs_zc_spread', 'futures_zc_zs_ratio', 'date_on_year', 'date_on_month', 'date_on_year_month']
-All dataset are succesfully categorised.</code></pre>
+<pre><code>{'Cfa': ['Buenos Aires', 'Entre Ríos', 'Santa Fe', 'Rio Grande do Sul', 'Alto Paraná', 'Amambay', 'Caaguazú', 'Canindeyú', 'Itapúa', 'San Pedro', 'KwaZulu-Natal'], 'Cwa': ['Córdoba', 'Santiago del Estero'], 'Af': ['Bahia'], 'Aw': ['Espírito Santo', 'Goiás', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais'], 'Cfb': ['Paraná'], 'Dfb': [], 'Dwa': [], 'BSk': ['Free State'], 'Csa': [], 'Dfc': [], 'Dfa': [], 'Cwb': ['Gauteng', 'Mpumalanga'], 'BSh': ['North West', 'Northern Cape']}
+{'Cfa': [], 'Cwa': ['Jalisco', 'Michoacán'], 'Af': [], 'Aw': ['Karnataka', 'Maharashtra', 'Tamil Nadu', 'Telangana', 'Guerrero'], 'Cfb': [], 'Dfb': [], 'Dwa': [], 'BSk': ['Guanajuato', 'Zacatecas'], 'Csa': ['Madhya Pradesh'], 'Dfc': [], 'Dfa': [], 'Cwb': [], 'BSh': []}
+{'Cfa': ['Jiangsu', 'Krasnodar Krai', 'Republic of Ingushetia', 'Stavropol Krai', 'Odessa', 'Indiana', 'Kansas', 'Missouri', 'Ohio'], 'Cwa': ['Henan', 'Shandong', 'Bihar'], 'Af': [], 'Aw': [], 'Cfb': [], 'Dfb': ['Ontario', 'Quebec', 'Bashkortostan', 'Belgorod', 'Bryansk', 'Kursk', 'Lipetsk', 'Nizhny Novgorod', 'Oryol', 'Penza', 'Republic of Mordovia', 'Republic of Tatarstan', 'Ryazan', 'Samara', 'Saratov', 'Tambov', 'Tula', 'Ulyanovsk', 'Voronezh', 'Cherkasy', 'Poltava', 'Sumy', 'Vinnytsia', 'Minnesota', 'North Dakota', 'Wisconsin'], 'Dwa': ['Hebei', 'Heilongjiang', 'Jilin'], 'BSk': ['Inner Mongolia', 'State of Mexico'], 'Csa': ['Sinaloa'], 'Dfc': ['Kabardino-Balkaria', 'Krasnoyarsk Krai'], 'Dfa': ['Orenburg', 'Republic of North Ossetia-Alania', 'Rostov', 'Dnipropetrovsk', 'Illinois', 'Iowa', 'Nebraska', 'South Dakota'], 'Cwb': [], 'BSh': []}</code></pre>
 </div>
 </div>
-<p>See how it goes.</p>
-<div id="2006fa94" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>testing <span class="op">=</span> pd.read_csv(<span class="st">"./Argentina/raw_Buenos Aires.csv"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>testing</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print(testing.dtypes)</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#print(testing['harvest_period'].unique())</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">region_name</th>
-<th data-quarto-table-cell-role="th">harvest_period</th>
-<th data-quarto-table-cell-role="th">growing_season_year</th>
-<th data-quarto-table-cell-role="th">date_on</th>
-<th data-quarto-table-cell-role="th">climate_risk_cnt_locations_heat_stress_risk_low</th>
-<th data-quarto-table-cell-role="th">climate_risk_cnt_locations_heat_stress_risk_medium</th>
-<th data-quarto-table-cell-role="th">climate_risk_cnt_locations_heat_stress_risk_high</th>
-<th data-quarto-table-cell-role="th">climate_risk_cnt_locations_unseasonably_cold_risk_low</th>
-<th data-quarto-table-cell-role="th">climate_risk_cnt_locations_unseasonably_cold_risk_medium</th>
-<th data-quarto-table-cell-role="th">climate_risk_cnt_locations_unseasonably_cold_risk_high</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">futures_zc1_vol_20</th>
-<th data-quarto-table-cell-role="th">futures_zc1_vol_60</th>
-<th data-quarto-table-cell-role="th">futures_zw_zc_spread</th>
-<th data-quarto-table-cell-role="th">futures_zc_zw_ratio</th>
-<th data-quarto-table-cell-role="th">futures_zs_zc_spread</th>
-<th data-quarto-table-cell-role="th">futures_zc_zs_ratio</th>
-<th data-quarto-table-cell-role="th">date_on_year</th>
-<th data-quarto-table-cell-role="th">date_on_month</th>
-<th data-quarto-table-cell-role="th">date_on_year_month</th>
-<th data-quarto-table-cell-role="th">categorical_harvest_period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Buenos Aires</td>
-<td>Harvest</td>
-<td>2017</td>
-<td>2016-06-15</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0.013520</td>
-<td>0.015724</td>
-<td>48.50</td>
-<td>0.898429</td>
-<td>727.00</td>
-<td>0.371107</td>
-<td>2016</td>
-<td>6</td>
-<td>2016_06</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Buenos Aires</td>
-<td>Harvest</td>
-<td>2017</td>
-<td>2016-06-16</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0.013799</td>
-<td>0.015792</td>
-<td>47.25</td>
-<td>0.900000</td>
-<td>709.25</td>
-<td>0.374835</td>
-<td>2016</td>
-<td>6</td>
-<td>2016_06</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Buenos Aires</td>
-<td>Harvest</td>
-<td>2017</td>
-<td>2016-06-17</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>14</td>
-<td>1</td>
-<td>8</td>
-<td>...</td>
-<td>0.013442</td>
-<td>0.016145</td>
-<td>43.50</td>
-<td>0.909610</td>
-<td>721.75</td>
-<td>0.377533</td>
-<td>2016</td>
-<td>6</td>
-<td>2016_06</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Buenos Aires</td>
-<td>Harvest</td>
-<td>2017</td>
-<td>2016-06-18</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>20</td>
-<td>0</td>
-<td>3</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2016</td>
-<td>6</td>
-<td>2016_06</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Buenos Aires</td>
-<td>Harvest</td>
-<td>2017</td>
-<td>2016-06-19</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>21</td>
-<td>2</td>
-<td>0</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2016</td>
-<td>6</td>
-<td>2016_06</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">3464</th>
-<td>Buenos Aires</td>
-<td>Planting</td>
-<td>2026</td>
-<td>2025-12-11</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2025</td>
-<td>12</td>
-<td>2025_12</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3465</th>
-<td>Buenos Aires</td>
-<td>Planting</td>
-<td>2026</td>
-<td>2025-12-12</td>
-<td>22</td>
-<td>1</td>
-<td>0</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2025</td>
-<td>12</td>
-<td>2025_12</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">3466</th>
-<td>Buenos Aires</td>
-<td>Planting</td>
-<td>2026</td>
-<td>2025-12-13</td>
-<td>20</td>
-<td>0</td>
-<td>3</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2025</td>
-<td>12</td>
-<td>2025_12</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3467</th>
-<td>Buenos Aires</td>
-<td>Planting</td>
-<td>2026</td>
-<td>2025-12-14</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2025</td>
-<td>12</td>
-<td>2025_12</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">3468</th>
-<td>Buenos Aires</td>
-<td>Planting</td>
-<td>2026</td>
-<td>2025-12-15</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>23</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2025</td>
-<td>12</td>
-<td>2025_12</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-<p>3469 rows × 37 columns</p>
-</div>
-</div>
-</div>
-<p>We need to sort the data by datetime</p>
-<div id="44424103" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>msno.matrix(testing, fontsize<span class="op">=</span><span class="dv">4</span>, label_rotation<span class="op">=</span><span class="dv">45</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-1.png" width="1911" height="889" class="figure-img"></p>
-</figure>
-</div>
+<div id="769a025b" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_cols <span class="op">=</span> raw_data.columns.tolist()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>deleted_cols <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'crop_name'</span>, <span class="st">'country_code'</span>, <span class="st">'region_id'</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df_cols_needed <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df_cols <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> deleted_cols]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> koppen, regions <span class="kw">in</span> n2_regions_categories.items():</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(regions)):</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        specific_region <span class="op">=</span> regions[i]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        filtered_region_df <span class="op">=</span> raw_data[raw_data[<span class="st">'region_name'</span>] <span class="op">==</span> specific_region]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        filtered_region_df <span class="op">=</span> filtered_region_df.loc[:, df_cols_needed]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        filtered_region_df[<span class="st">"date_on"</span>] <span class="op">=</span> pd.to_datetime(filtered_region_df[<span class="st">"date_on"</span>])</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        filtered_region_df <span class="op">=</span> filtered_region_df.sort_values(by<span class="op">=</span><span class="st">"date_on"</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Create categorical variables for harvest period</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        mapping_period_dict <span class="op">=</span> {</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Off-season'</span>: <span class="dv">0</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Planting'</span>: <span class="dv">1</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Mid-season'</span>: <span class="dv">2</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Harvest'</span>: <span class="dv">3</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Peak Harvest'</span>: <span class="dv">4</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        filtered_region_df[<span class="st">'categorical_harvest_period'</span>] <span class="op">=</span> filtered_region_df[<span class="st">'harvest_period'</span>].<span class="bu">map</span>(mapping_period_dict)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>        output_dir <span class="op">=</span> <span class="ss">f'./North_2_Hemisphere/Region_</span><span class="sc">{</span>koppen<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>        os.makedirs(output_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>        file_name <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>specific_region<span class="sc">}</span><span class="ss">.csv'</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>        full_path <span class="op">=</span> os.path.join(output_dir, file_name)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>        filtered_region_df.to_csv(full_path, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All dataset are succesfully categorised."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All dataset are succesfully categorised.</code></pre>
 </div>
 </div>
 </section>
 <section id="nullity-plots" class="level1">
 <h1>1. Nullity Plot(s)</h1>
-<div id="64157fd2" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> country, regions <span class="kw">in</span> country_region.items():</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    num_regions <span class="op">=</span> <span class="bu">len</span>(regions)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    ncols <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    nrows <span class="op">=</span> math.ceil(num_regions<span class="op">/</span>ncols)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span>nrows, ncols<span class="op">=</span>ncols,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                            figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span> <span class="op">*</span> nrows))</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f"Missing Data Overview: </span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num_regions <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        axes <span class="op">=</span> [axes]</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        axes <span class="op">=</span> axes.flatten()</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, region <span class="kw">in</span> <span class="bu">enumerate</span>(regions):</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        working_df <span class="op">=</span> pd.read_csv(<span class="ss">f"./</span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">/raw_</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">.csv"</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        msno.matrix(working_df, fontsize<span class="op">=</span><span class="dv">4</span>, label_rotation<span class="op">=</span><span class="dv">45</span>, ax<span class="op">=</span>axes[i], sparkline<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        axes[i].set_title(<span class="ss">f"Region: </span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">"</span>, y<span class="op">=-</span><span class="fl">0.25</span>,fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(axes)):</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        axes[j].axis(<span class="st">'off'</span>)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-1.png" width="1142" height="1110" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-2.png" width="1142" height="1489" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-3.png" width="1142" height="339" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-4.png" width="1142" height="1489" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-5.png" width="1142" height="1110" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-6.png" width="1141" height="1489" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-7.png" width="1142" height="1110" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-8.png" width="1142" height="4930" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-9.png" width="1142" height="1110" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-10.png" width="1142" height="1110" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-11.png" width="1142" height="2244" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="time-series-plots" class="level1">
-<h1>2. Time Series Plot(s)</h1>
-<ul>
-<li>Check harvest period to cluster them.</li>
-</ul>
-<div id="4ccd3fe2" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selected_cols = df_cols_needed.copy()</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # cols_to_remove = ['region_name', 'harvest_period', 'growing_season_year', 'date_on_year', 'date_on_month', 'date_on_year_month']</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nonan_cols = [col for col in selected_cols if col.startswith('climate')] + ['date_on', 'categorical_harvest_period']</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># nan_cols = [col for col in selected_cols if col.startswith('futures')] + ['date_on']</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># regions = country_region['Argentina'] </span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># num_regions = len(regions)</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ncols = 3</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nrows = math.ceil(num_regions/ncols)</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># fig, axes = plt.subplots(nrows=nrows, ncols=ncols,</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                         figsize=(12, 4 * nrows))</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># fig.suptitle(f"Harvest Seasons: Argentina", fontsize=16, fontweight="bold")</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># if num_regions == 1:</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes = [axes]</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># else:</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes = axes.flatten()</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># for i, region in enumerate(regions):</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     working_df = pd.read_csv(f"./Argentina/raw_{region}.csv")</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes[i].plot(working_df['date_on'], working_df['categorical_harvest_period'], </span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#                 color='darkgreen', linewidth=2)</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     # Formatting the individual subplot</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes[i].set_title(f"Region: {region}", fontsize=12)</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes[i].set_ylabel("Harvest State")</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes[i].grid(True, alpha=0.3)</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes[i].tick_params(axis='x', rotation=45)</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co"># for j in range(i + 1, len(axes)):</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">#     axes[j].axis('off')</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.tight_layout()</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.show()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7a62c649" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for country, regions in country_region.items():</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     num_regions = len(regions)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     ncols = 2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     nrows = math.ceil(num_regions/ncols)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     fig, axes = plt.subplots(nrows=nrows, ncols=ncols,</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                             figsize=(12, 4 * nrows))</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     fig.suptitle(f"Missing Data Overview: {country}", fontsize=16, fontweight="bold")</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     if num_regions == 1:</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#         axes = [axes]</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     else:</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#         axes = axes.flatten()</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     for i, region in enumerate(regions):</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#         working_df = pd.read_csv(f"./{country}/raw_{region}.csv")</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#         msno.matrix(working_df, fontsize=4, label_rotation=45, ax=axes[i], sparkline=False)</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#         axes[i].set_title(f"Region: {region}", y=-0.25,fontsize=12)</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     for j in range(i + 1, len(axes)):</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#         axes[j].axis('off')</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     plt.tight_layout()</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     plt.show()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 

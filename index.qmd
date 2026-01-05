@@ -10,12 +10,6 @@ execute:
     freeze: true
 ---
 
-# Exploratory Data Analysis (EDA) Contents
-1. Nullity Analysis
-2. Time Series Plots
-3. Scatterplots
-4. Distributional Plots
-
 # Import Libraries
 ```{python}
 import pandas as pd
@@ -39,45 +33,71 @@ raw_data.head()
 ```{python}
 print(raw_data.shape)
 print(raw_data.columns)
-print(raw_data['country_name'].unique())
 ```
 
-# Storing Countries and Regions 
 ```{python}
-country_names = raw_data['country_name'].unique().tolist()
-country_region = dict()
+hemisphere_data = pd.read_csv('corn_regional_hemisphere.csv')
+koppen_data = pd.read_csv('corn_regional_climate_type.csv')
 
-for i in range(len(country_names)):
-    specific_country = country_names[i]
-    #Only looks on specific_country and we seek the regions name
-    filtered_df = raw_data[raw_data['country_name'] == specific_country]
-    specific_regions = filtered_df['region_name'].unique().tolist()
-    #Store them into dictionaries
-    country_region[specific_country] = specific_regions
+hemisphere_name_dict = dict(zip(hemisphere_data['region_id'], hemisphere_data['hemisphere']))
+koppen_name_dict = dict(zip(koppen_data['region_id'], koppen_data['koppen_zone']))
 
-country_region
+print(hemisphere_name_dict)
+print(koppen_name_dict)
+```
+
+```{python}
+raw_data['hemisphere'] = raw_data['region_id'].map(hemisphere_name_dict)
+raw_data['koppen'] = raw_data['region_id'].map(koppen_name_dict)
+
+raw_data.head()
+print(raw_data['koppen'].unique())
+print(raw_data['hemisphere'].unique())
 ```
 
 # Categorising dataset(s)
-Need to seperate the dataset into different regions (the dataset is from 2015 to 2024)
-Try to split the dataset first wrt specific regions
+Categorise dataset wrt hemisphere, and then koppen climate type.
+```{python}
+south_data = raw_data[raw_data['hemisphere'] == 'S']
+n1_data = raw_data[raw_data['hemisphere'] == 'N_1']
+n2_data = raw_data[raw_data['hemisphere'] == 'N_2']
+
+south_regions_categories = dict()
+n1_regions_categories = dict()
+n2_regions_categories = dict()
+
+for koppen in raw_data['koppen'].unique():
+    south_koppen = south_data[south_data['koppen'] == f'{koppen}']
+    south_koppen_region = south_koppen['region_name'].unique().tolist()
+    south_regions_categories[koppen] = south_koppen_region
+
+    n1_koppen = n1_data[n1_data['koppen'] == f'{koppen}']
+    n1_koppen_region = n1_koppen['region_name'].unique().tolist()
+    n1_regions_categories[koppen] = n1_koppen_region
+
+    n2_koppen = n2_data[n2_data['koppen'] == f'{koppen}']
+    n2_koppen_region = n2_koppen['region_name'].unique().tolist()
+    n2_regions_categories[koppen] = n2_koppen_region
+
+print(south_regions_categories)
+print(n1_regions_categories)
+print(n2_regions_categories)
+```
+
 ```{python}
 df_cols = raw_data.columns.tolist()
-deleted_cols = ['ID', 'crop_name', 'country_name', 'country_code', 'region_id']
+deleted_cols = ['ID', 'crop_name', 'country_code', 'region_id']
 df_cols_needed = [col for col in df_cols if col not in deleted_cols]
 
-print(df_cols_needed)
-
-for country, regions in country_region.items():
+for koppen, regions in n2_regions_categories.items():
     for i in range(len(regions)):
         specific_region = regions[i]
 
-        filtered_country_df = raw_data[raw_data['country_name'] == country]
-        filtered_country_region_df = filtered_country_df[filtered_country_df['region_name'] == specific_region]
+        filtered_region_df = raw_data[raw_data['region_name'] == specific_region]
 
-        filtered_country_region_df = filtered_country_region_df.loc[:, df_cols_needed]
-        filtered_country_region_df["date_on"] = pd.to_datetime(filtered_country_region_df["date_on"])
-        filtered_country_region_df = filtered_country_region_df.sort_values(by="date_on", ascending=True)
+        filtered_region_df = filtered_region_df.loc[:, df_cols_needed]
+        filtered_region_df["date_on"] = pd.to_datetime(filtered_region_df["date_on"])
+        filtered_region_df = filtered_region_df.sort_values(by="date_on", ascending=True)
 
         #Create categorical variables for harvest period
         mapping_period_dict = {
@@ -88,98 +108,44 @@ for country, regions in country_region.items():
             'Peak Harvest': 4,
         }
 
-        filtered_country_region_df['categorical_harvest_period'] = filtered_country_region_df['harvest_period'].map(mapping_period_dict)
+        filtered_region_df['categorical_harvest_period'] = filtered_region_df['harvest_period'].map(mapping_period_dict)
 
-        output_dir = f'./{country}'
+        output_dir = f'./North_2_Hemisphere/Region_{koppen}'
         os.makedirs(output_dir, exist_ok=True)
 
-        file_name = f'raw_{specific_region}.csv'
+        file_name = f'{specific_region}.csv'
         full_path = os.path.join(output_dir, file_name)
-        filtered_country_region_df.to_csv(full_path, index=False)
+        filtered_region_df.to_csv(full_path, index=False)
 
 print("All dataset are succesfully categorised.")
 ```
 
-See how it goes.
-```{python}
-testing = pd.read_csv("./Argentina/raw_Buenos Aires.csv")
-testing
-#print(testing.dtypes)
-#print(testing['harvest_period'].unique())
-```
-
-We need to sort the data by datetime
-```{python}
-msno.matrix(testing, fontsize=4, label_rotation=45)
-```
-
 # 1. Nullity Plot(s)
 ```{python}
-for country, regions in country_region.items():
-    num_regions = len(regions)
-    ncols = 2
-    nrows = math.ceil(num_regions/ncols)
+# for country, regions in country_region.items():
+#     num_regions = len(regions)
+#     ncols = 2
+#     nrows = math.ceil(num_regions/ncols)
 
-    fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
-                            figsize=(12, 4 * nrows))
-    fig.suptitle(f"Missing Data Overview: {country}", fontsize=16, fontweight="bold")
+#     fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
+#                             figsize=(12, 4 * nrows))
+#     fig.suptitle(f"Missing Data Overview: {country}", fontsize=16, fontweight="bold")
 
-    if num_regions == 1:
-        axes = [axes]
-    else:
-        axes = axes.flatten()
+#     if num_regions == 1:
+#         axes = [axes]
+#     else:
+#         axes = axes.flatten()
 
-    for i, region in enumerate(regions):
-        working_df = pd.read_csv(f"./{country}/raw_{region}.csv")
+#     for i, region in enumerate(regions):
+#         working_df = pd.read_csv(f"./{country}/raw_{region}.csv")
 
-        msno.matrix(working_df, fontsize=4, label_rotation=45, ax=axes[i], sparkline=False)
+#         msno.matrix(working_df, fontsize=4, label_rotation=45, ax=axes[i], sparkline=False)
 
-        axes[i].set_title(f"Region: {region}", y=-0.25,fontsize=12)
+#         axes[i].set_title(f"Region: {region}", y=-0.25,fontsize=12)
 
-    for j in range(i + 1, len(axes)):
-        axes[j].axis('off')
+#     for j in range(i + 1, len(axes)):
+#         axes[j].axis('off')
     
-    plt.tight_layout()
-    plt.show()
-```
-
-# 2. Time Series Plot(s)
-- Check harvest period to cluster them.
-```{python}
-# selected_cols = df_cols_needed.copy()
-# # cols_to_remove = ['region_name', 'harvest_period', 'growing_season_year', 'date_on_year', 'date_on_month', 'date_on_year_month']
-# nonan_cols = [col for col in selected_cols if col.startswith('climate')] + ['date_on', 'categorical_harvest_period']
-# nan_cols = [col for col in selected_cols if col.startswith('futures')] + ['date_on']
-
-# regions = country_region['Argentina'] 
-# num_regions = len(regions)
-# ncols = 3
-# nrows = math.ceil(num_regions/ncols)
-
-# fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
-#                         figsize=(12, 4 * nrows))
-# fig.suptitle(f"Harvest Seasons: Argentina", fontsize=16, fontweight="bold")
-
-# if num_regions == 1:
-#     axes = [axes]
-# else:
-#     axes = axes.flatten()
-
-# for i, region in enumerate(regions):
-#     working_df = pd.read_csv(f"./Argentina/raw_{region}.csv")
-        
-#     axes[i].plot(working_df['date_on'], working_df['categorical_harvest_period'], 
-#                 color='darkgreen', linewidth=2)
-
-#     # Formatting the individual subplot
-#     axes[i].set_title(f"Region: {region}", fontsize=12)
-#     axes[i].set_ylabel("Harvest State")
-#     axes[i].grid(True, alpha=0.3)
-#     axes[i].tick_params(axis='x', rotation=45)
-
-# for j in range(i + 1, len(axes)):
-#     axes[j].axis('off')
-    
-# plt.tight_layout()
-# plt.show()
+#     plt.tight_layout()
+#     plt.show()
 ```
