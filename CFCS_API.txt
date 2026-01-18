@@ -10,7 +10,7 @@ Example Usage:
 df = pd.read_csv('./corn_climate_risk_futures_daily_master.csv')
 ## master dataset from Helios
 
-correlation_table = compute_partial_correlations(riskfutures)
+correlation_table = compute_partial_correlations(df)
 ## compute correlation table 
 
 cfcs_scoreboard = cfcs(correlation_table)
@@ -25,5 +25,6 @@ final CFCS score is 12.89
  'avg_sig_score': 0.0,
  'max_corr_score': 42.958,
  'sig_count_score': 0.0}
+
 
 
