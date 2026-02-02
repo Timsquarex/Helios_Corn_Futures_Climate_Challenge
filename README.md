@@ -1,4 +1,5 @@
 # Helios Corn Futures Climate Challenge (Kaggle Competition)
+## Team: DrinkMoreWater (Me and William, team of 2)
 
 <p>
 This repository is focusing on the process of
