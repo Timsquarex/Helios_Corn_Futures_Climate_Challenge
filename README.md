@@ -1,5 +1,4 @@
 # Helios Corn Futures Climate Challenge (Kaggle Competition)
-## Team: DrinkMoreWater (Me and William, team of 2)
 
 <p>
 This repository is focusing on the process of
@@ -25,10 +24,12 @@ For this repository, we could categorise the file into the state of:
     - North_2_Hemisphere directory (from index.qmd)
     - South_Hemisphere directory (from index.qmd)
     
-    - corn_climate_risk_futures_daily_master.csv (main dataset from Kaggle)
+    - corn_climate_risk_futures_daily_master.csv (main dataset from Kaggle, **too large to save in GitHub**)
     - corn_regional_market_share.csv (dataset from Kaggle)
     - corn_regional_climate_type.csv: Classified by Koppen climate type (by William)
     - corn_regional_hemisphere.csv: Classified by using hemisphere (by William)
+
+    - final_result_corr_2.csv (from Phrase_3/overall_final_features_result.ipynb)
 
 - harvest_season_plots: images saved (from harvest_period_plots.py)
 
@@ -40,6 +41,8 @@ For this repository, we could categorise the file into the state of:
     - index_2.qmd: Using subsets to plot time series plots, distributional plots (on cliamate and corn futures variables).
 
     - harvest_period_plots.py: The file to plot planting seasonality for each regions, and saved them into *harvest_season_plot* folder.
+
+    - EDA_regional_marketshare.html (by William)
 
 - Phrase 2: Heavy feature engineering
     - feature_engineering_1.ipynb: for engineering new climate types with different equations, including heatwaves, coldwaves, flood, storms, and wildfires.
@@ -57,25 +60,34 @@ For this repository, we could categorise the file into the state of:
     - helios_submission_3.ipynb: We used our own baseline notebook, and did non-linear transformation, lag features, new climate types features, and ended up we moved to Kaggle notebook since the dataset are too large to handle.
 
 - Phrase 3: The most important part to show the final_submission (P.S. I have large dataset file, therefore it might not work locally but it works in Kaggle) 
-    - final_feature_engineering.ipynb: This includes final feature engineering approaches we used in our final submission, and also how I saved the correlation results into csv and combined them together to select the best subset features. *final_result_corr_2.csv*
 
-    - samplings.ipynb: after done the final feature engineering, we have large dataset, so I decided to split into 20 subsets randomly and to test the consistent performance of different features (the first filter: I only chose the features with 0.6 avg_sig_corr above into the next stage of filtering).
+    **You need to run according to this order**
+        **1. overall_final_features_result.ipynb (You can skip this, since I have saved the result in Data)**
+        **2. final_features_and_samplings.ipynb**
+        **3. samplings_result.ipynb**
+        **4. final_submission.ipynb**
+    
+    - overall_final_features_results.ipynb: This includes the whole process of final feature engineering, and because of long computation time, I ran the cfcs backtesting by chunks. I saved the those results into *Data/final_result_corr_2.csv*
+
+    - final_features_and_samplings.ipynb: We decided to split into 20 subsets randomly and to test the consistent performance of different features.
 
     - samplings_result.ipynb: with the second filtering and the third filtering, I chose the only consistent top features in 20 subsets by ranking them according to sig_corr_ratio 
 
-        - The features need to place above top 200 in sig_corr_ratio in every subsets (ended up, we just only have 2 features in this second filtering), and 
+        - 1st filter: I only chose the features with 0.6 avg_sig_corr above according to the result from *Data/final_result_corr_2.csv* (Main dataset cfcs backtest result)
 
-        - The features need to place above top 200 in avg_corr_ratio in every subsets (ended up, we just only have 16 features in this third filtering).
+        - 2nd filter: Choose the features are performing consistently in those 20 parquet files (not saved in local, and I did run in Kaggle), by sorting **sig_corr_count** by listing out the first 100. --> We got 2 features only at the end of the filter.
 
-        - Summary: ended up, we filtered the features from ~13,000 features into 18 features for the final_submission.ipynb
+        - 3rd filter: Choose the features are performing consistently in those 20 parquet files (not saved in local, and I did run in Kaggle), by sorting **avg_sig_corr** by listing out the first 220. --> We got 18 features only at the end of the filter, but I did just choose 13 features from the result.
+
+        - Summary: ended up, we filtered the features from ~13,000 features into 15 features for the *final_submission.ipynb* by 2nd filter + 3rd filter
 
         - **Reasons of doing this: We realised that our feature with the highest avg_sig_corr does not always perform well in test data, that's why we tried to select a certain amount of features with consistent performance to optimise the score and prevent the overfitting problem.**
 
-    - final_submission.ipynb: 
-
+    - final_submission.ipynb: The final submission with the "best subset features" in Kaggle (with the score of 59.34)
 
 - Backtesting API by William (teammate), includes:
     - cfcs.py
     - CFCS_API.txt
 
+- .gitignore: ignoring the big dataset to prevent GitHub error.
 </p>
